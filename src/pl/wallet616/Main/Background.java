@@ -5,7 +5,7 @@ public class Background extends Main{
 		public void run() {
 			while (timerActive) {
 				try {
-					ConnectionHandler.connection("say:tak");
+					ConnectionHandler.connection("status:on");
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					Log.error("Unable to keep the backgound process alive.");

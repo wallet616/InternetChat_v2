@@ -10,7 +10,7 @@ public class DataRead extends Main{
 	private static File file;
 	private static final String OS = System.getProperty("os.name");
 	
-	public static boolean loadUser(String userKey) {
+	public static boolean loadUser() {
 		boolean repeat = false;
 		try {
 			if (OS.startsWith("Win")) {
@@ -26,6 +26,8 @@ public class DataRead extends Main{
 			}
 			if (!file.exists()) {
 				file.createNewFile();
+				
+				// Add default settings.
 			}
 		    
 			// Data to assign in loops.
@@ -41,9 +43,10 @@ public class DataRead extends Main{
 			    	break loopbreak;
 			    }
 			    
-			    if (line.equals("UserKey: ")) {
+			    if (line.startsWith("UserKey: ")) {
 			    	userData[0] = line.substring(9);
 			    	userKeyFound = true;
+			    	repeat = true;
 			    }
 			    if (line.startsWith("UserName: ") && userKeyFound) {
 			    	userData[1] = line.substring(10);
@@ -53,8 +56,8 @@ public class DataRead extends Main{
 		    br.close();
 		    
 			if (repeat) {
-			    Log.log("User key " + userData[0] + " has been loaded.");
-			    Log.log("User name " + userData[1] + " has been loaded.");
+			    Log.log("User key: " + userData[0] + ".");
+			    Log.log("User name: " + userData[1] + ".");
 			} else {
 			    Log.log("User has not been loaded.");
 			}

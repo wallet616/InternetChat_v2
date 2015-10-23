@@ -44,18 +44,16 @@ public class ConnectionHandler extends Main {
 	        
 	        if (message.equals("1:1:1")) {
 	        	return true;
-	        } else if (message.equals("1:1:0")) {
+	        } else if (message.equals("1:2:0")) {
+	        	connection("load:" + userData[1]);
 	        	Log.log("User no reconised.");
-	        	return false;
-	        } else if (message.equals("1:1:0")) {
-	        	Log.log("Command not reconised.");
 	        	return false;
 	        } else if (message.equals("1:0:0")) {
 	        	Log.log("Command not reconised.");
 	        	return false;
-	        } else {
-	        	Log.log("Invaild message format received.");
-	        	return false;
+	        } else if (message.startsWith("1:1:")) {
+	        	Log.log(message.substring(5));
+	        	return true;
 	        }
 	        
 			} catch (UnknownHostException e) {
@@ -63,7 +61,7 @@ public class ConnectionHandler extends Main {
 			Log.error("Unable to connect to server.");
 		} catch (IOException e) {
 			serverStatus = false;
-			Log.error("Unable to create connection.");
+			Log.log("Unable to create connection.");
 		}
 		return false;
 	};
