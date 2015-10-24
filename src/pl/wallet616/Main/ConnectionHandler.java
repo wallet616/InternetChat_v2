@@ -39,29 +39,39 @@ public class ConnectionHandler extends Main {
 			{
 				if ((message.length() - message.replaceAll(":", "").length()) < 2) {
 					message = "0:0:0";
+				} else {
+					serverStatus = true;
 				}
 			} catch (Exception e) {}
 			
-			serverStatus = true;
-			if (message.equals("1:1:1")) {
-				return true;
-			} else if (message.equals("1:1:0")) {
-				connection("load:" + userData[1]);
-				Log.log("User no reconised.");
-				return false;
-			} else if (message.equals("1:0:0")) {
-				Log.error("Command not reconised.");
-				return false;
-			} else if (message.equals("1:2:0")) {
+			if (message.equals("1:2:0")) {
 				return false;
 			} else if (message.startsWith("1:2:")) {
 				Log.log(message.substring(5));
 				return true;
+			} else if (message.equals("1:1:1")) {
+				Log.log("Succes.");
+				return true;
+			} else if (message.equals("1:1:0")) {
+				Log.log("Failed.");
+				return false;
+			} else if (message.equals("1:3:0")) {
+				Log.log("Joining server...");
+				connection("load:" + userData[1]);
+				return false;
+			} else if (message.equals("1:3:1")) {
+				Log.log("Connected.");
+				return true;
+			} else if (message.equals("1:0:0")) {
+				Log.error("Command not reconised.");
+				return false;
+			} else {
+				Log.error("Invalid repeat message received.");
 			}
 			
 		} catch (UnknownHostException e) {
 			serverStatus = false;
-			Log.error("Unable to connect to server.");
+			Log.log("Unable to connect to server.");
 		} catch (IOException e) {
 			serverStatus = false;
 			Log.log("Unable to create connection.");
