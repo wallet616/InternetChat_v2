@@ -50,7 +50,9 @@ public class ConnectionHandler extends Main {
 				Log.log("User no reconised.");
 				return false;
 			} else if (message.equals("1:0:0")) {
-				Log.log("Command not reconised.");
+				Log.error("Command not reconised.");
+				return false;
+			} else if (message.equals("1:2:0")) {
 				return false;
 			} else if (message.startsWith("1:2:")) {
 				Log.log(message.substring(5));
