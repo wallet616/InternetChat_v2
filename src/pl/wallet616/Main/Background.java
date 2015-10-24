@@ -5,13 +5,17 @@ public class Background extends Main{
 		public void run() {
 			while (timerActive) {
 				try {
-					ConnectionHandler.connection("status:on");
-					Thread.sleep(500);
+					// Tutaj dorobic liste do zapytan.
+					ConnectionHandler.connection("arch:on");
+					if (serverStatus) {
+						Thread.sleep(500);
+					} else {
+						Thread.sleep(1000);
+					}
 				} catch (InterruptedException e) {
 					Log.error("Unable to keep the backgound process alive.");
 				}
 			}
 		}
 	};
-	
 }
