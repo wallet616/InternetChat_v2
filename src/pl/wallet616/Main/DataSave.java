@@ -8,19 +8,45 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class DataSave extends Main{
-	private static File file;
-	private static final String OS = System.getProperty("os.name");
+	// Default paths to files.
+		public static void getPaths() {
+			String os = System.getProperty("os.name");
+			
+			if (os.startsWith("Win")) {
+				mainFolder = new File(System.getenv("APPDATA") + "/wallet616");
+				mainErrorFolder = new File(System.getenv("APPDATA") + "/wallet616/error");
+				mainLogFolder = new File(System.getenv("APPDATA") + "/wallet616/log");
+				dataFile = new File(System.getenv("APPDATA") + "/wallet616/data.dat");
+				logFile = System.getenv("APPDATA") + "/wallet616/log/";
+				errorLogFile = System.getenv("APPDATA") + "/wallet616/error/";
+			} else {
+				mainFolder = new File("/home/wallet616");
+				mainErrorFolder = new File("/home/wallet616/error");
+				mainLogFolder = new File("/home/wallet616/log");
+				dataFile = new File("/home/wallet616/data.dat");
+				logFile = "/home/wallet616/log/";
+				errorLogFile = "/home/wallet616/error/";
+			}
+			
+			try {
+				if (!mainFolder.exists()) {
+					mainFolder.mkdirs();
+				}
+				if (!mainLogFolder.exists()) {
+					mainLogFolder.mkdirs();
+				}
+				if (!dataFile.exists()) {
+					dataFile.createNewFile();
+				}
+			} catch (IOException e) {
+				Log.error("Unable to create necesery files and folders");
+			}
+		}
 	
 	public static boolean changeData(String userKey, String position, String data) {
 		boolean repeat = false;
 		try {
-			if (OS.startsWith("Win")) {
-				file = new File(System.getenv("APPDATA") + "/wallet616/data.dat");
-			} else {
-				file = new File("/home/wallet616/data.dat");
-			}
-			
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			BufferedReader br = new BufferedReader(new FileReader(dataFile));
 		    String line;
 		    String newString = "";
 		    boolean foundKey = false;
@@ -46,7 +72,7 @@ public class DataSave extends Main{
 		    }
 		    br.close();
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile));
 			bw.write(newString);
 		    bw.close();
 		    

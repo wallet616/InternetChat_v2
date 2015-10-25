@@ -1,37 +1,16 @@
 package pl.wallet616.Main;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class DataRead extends Main{
-	private static File folder;
-	private static File file;
-	private static final String OS = System.getProperty("os.name");
 	
 	public static boolean loadUser() {
 		boolean repeat = false;
 		try {
-			if (OS.startsWith("Win")) {
-				folder = new File(System.getenv("APPDATA") + "/wallet616");
-				file = new File(System.getenv("APPDATA") + "/wallet616/data.dat");
-			} else {
-				folder = new File("/home/wallet616");
-				file = new File("/home/wallet616/data.dat");
-			}
-			
-			if (!folder.exists()) {
-				folder.mkdirs();
-			}
-			if (!file.exists()) {
-				file.createNewFile();
-				
-				// Add default settings.
-			}
-		    
 			// Data to assign in loops.
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			BufferedReader br = new BufferedReader(new FileReader(dataFile));
 		    String line;
 		    boolean userKeyFound = false;
 		    
