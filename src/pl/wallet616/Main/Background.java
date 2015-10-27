@@ -6,7 +6,7 @@ public class Background extends Main{
 			while (timerActive) {
 				try {
 					// Tutaj dorobic liste do zapytan o wiadomosci.
-					ConnectionHandler.connection("arch:on");
+					ConnectionHandler.connection("arch:" + lastMessage);
 					if (serverStatus) {
 						Thread.sleep(500);
 					} else {

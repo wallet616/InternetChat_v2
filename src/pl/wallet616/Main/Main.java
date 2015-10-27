@@ -7,6 +7,9 @@ public class Main {
 	public static String[] userData = new String[5];
 	public static boolean serverStatus = false;
 	public static boolean timerActive = true;
+	public static String lastMessage = "0";
+	
+	// Files
 	public static File mainFolder;
 	public static File mainServerFolder;
 	public static File mainErrorFolder;

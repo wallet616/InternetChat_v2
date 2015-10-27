@@ -42,12 +42,14 @@ public class ConnectionHandler extends Main {
 				} else {
 					serverStatus = true;
 				}
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				Log.error("Invaild input message received.");
+			}
 			
-			if (message.equals("1:2:0")) {
-				return false;
-			} else if (message.startsWith("1:2:")) {
-				Log.log(message.substring(5));
+			if (message.startsWith("1:2:")) {
+				if (!message.equals("1:2:0")) {
+					ChatHandler.chat(message.substring(5));
+				}
 				return true;
 			} else if (message.equals("1:1:1")) {
 				Log.log("Succes.");
