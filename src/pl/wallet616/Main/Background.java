@@ -5,8 +5,10 @@ public class Background extends Main{
 		public void run() {
 			while (timerActive) {
 				try {
-					// Tutaj dorobic liste do zapytan o wiadomosci.
 					ConnectionHandler.connection("arch:" + lastMessage);
+					
+					ConnectionHandler.connection("say:Wiem");
+					
 					if (serverStatus) {
 						Thread.sleep(500);
 					} else {

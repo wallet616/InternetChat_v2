@@ -46,9 +46,12 @@ public class ConnectionHandler extends Main {
 				Log.error("Invaild input message received.");
 			}
 			
+			Log.log(command);
+			Log.log(message);
+			
 			if (message.startsWith("1:2:")) {
 				if (!message.equals("1:2:0")) {
-					ChatHandler.chat(message.substring(5));
+					ChatHandler.chat(message.substring(4));
 				}
 				return true;
 			} else if (message.equals("1:1:1")) {
@@ -59,7 +62,7 @@ public class ConnectionHandler extends Main {
 				return false;
 			} else if (message.equals("1:3:0")) {
 				Log.log("Joining server...");
-				connection("load:" + userData[1]);
+				connection("load:" + userData[0]);
 				return false;
 			} else if (message.equals("1:3:1")) {
 				Log.log("Connected.");

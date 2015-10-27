@@ -8,14 +8,17 @@ public class ChatHandler extends Main{
 		
 		try 
 		{
-			listaWiadomosci = message.split("(<:>)");
-		
+			listaWiadomosci = message.split("<?:?>");
+			
+			breakpoint:
 			for (int i = 0; i < liczbaMax; i++) {
 				if (listaWiadomosci[i] != null) {
-					wiadomosc = listaWiadomosci[i].split(":", 3);
+					wiadomosc = listaWiadomosci[i].split("<#:#>", 4);
+				} else {
+					break breakpoint;
 				}
 				
-				Log.log(wiadomosc[0]);
+				Log.log(wiadomosc[3]);
 			}
 			
 			lastMessage = String.valueOf(wiadomosc[0]);
