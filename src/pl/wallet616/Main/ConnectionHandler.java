@@ -35,19 +35,12 @@ public class ConnectionHandler extends Main {
 			BufferedReader br = new BufferedReader(isr);
 			String message = br.readLine();
 			
-			try 
-			{
-				if ((message.length() - message.replaceAll(":", "").length()) < 2) {
-					message = "0:0:0";
-				} else {
-					serverStatus = true;
-				}
-			} catch (Exception e) {
+			if ((message.length() - message.replaceAll(":", "").length()) < 2) {
+				message = "0:0:0";
 				Log.error("Invaild input message received.");
+			} else {
+				serverStatus = true;
 			}
-			
-			Log.log(command);
-			Log.log(message);
 			
 			if (message.startsWith("1:2:")) {
 				if (!message.equals("1:2:0")) {
