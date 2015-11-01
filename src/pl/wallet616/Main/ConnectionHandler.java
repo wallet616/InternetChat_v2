@@ -15,7 +15,7 @@ public class ConnectionHandler extends Main {
 	// Connection handler connection.
 	private static Socket socket;
 	private static final String host = "localhost";
-	private static final int port = 616;
+	private static final int port = 27015;
 	
 	public static boolean connection(String command) {
 		try {
