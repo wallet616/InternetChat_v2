@@ -4,7 +4,7 @@ public class ChatHandler extends Main{
 	public static void chat(String message) {
 		final int liczbaMax = 10;
 		String[] listaWiadomosci = new String[liczbaMax];
-		String[] wiadomosc = new String [4];
+		String[] wiadomosc = new String[5];
 		
 		try 
 		{
@@ -20,6 +20,7 @@ public class ChatHandler extends Main{
 		}
 		catch (Exception e)
 		{
+			System.out.print(e);
 			Log.log("Unable to split messages.");
 		}
 	}

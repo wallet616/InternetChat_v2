@@ -7,8 +7,6 @@ public class Background extends Main{
 				try {
 					ConnectionHandler.connection("arch:" + lastMessage);
 					
-					ConnectionHandler.connection("say:Tak.");
-					
 					if (serverStatus) {
 						Thread.sleep(500);
 					} else {

@@ -21,10 +21,10 @@ public class Main {
 	public static String errorLogFile;
 
 	public static void main(String[] args) {
-		
 		DataSave.getPaths();
 		DataRead.loadUser();
 		Background.background.start();
+		ConsoleInput.console();
 	}
 
 }
