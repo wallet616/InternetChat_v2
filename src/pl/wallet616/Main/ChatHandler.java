@@ -1,27 +1,23 @@
 package pl.wallet616.Main;
 
 public class ChatHandler extends Main{
-	public static void chat(String message) {
-		final int liczbaMax = 10;
-		String[] listaWiadomosci = new String[liczbaMax];
-		String[] wiadomosc = new String[5];
-		
+	public static boolean chat(String message) {
 		try 
 		{
-			listaWiadomosci = message.split(".ws1");
-			Log.log(message);
+			String[] listaWiadomosci = message.split(".ws1");
 			
-			for (int i = 0; i < liczbaMax; i++) {
-				if (listaWiadomosci[i] != null) {
-					wiadomosc = listaWiadomosci[i].split(".ws2", 4);
-					lastMessage = wiadomosc[0];
-				}
+			for (int i = 0; i < listaWiadomosci.length; i++) {
+				String[] mess = listaWiadomosci[i].split(".ws2", 4);
+				lastMessage = mess[0];
+				DataSave.archiveSave(mess[1], mess[2], mess[3]);
+				
 			}
+			return true;
 		}
 		catch (Exception e)
 		{
-			System.out.print(e);
 			Log.log("Unable to split messages.");
 		}
+		return false;
 	}
 }

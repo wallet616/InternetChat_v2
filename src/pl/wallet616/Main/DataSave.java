@@ -88,4 +88,27 @@ public class DataSave extends Main{
 		}
 		return repeat;
 	}
+	
+	// Adding to log file.
+	public static boolean archiveSave(String date, String userName, String message) {
+		try {
+			// Creating file to save log.
+			File log = new File(logFile + date.substring(0, 10) + ".txt");
+			if (!log.exists()) {
+				log.createNewFile();
+			}
+			
+			// Adding new data at the end of the line. 
+			BufferedWriter bw = new BufferedWriter(new FileWriter(log, true));
+			bw.append("[" + date.substring(11) + "] [" + userName + "]: " + message + "\n");
+		    bw.close();
+		    
+		    // Display messages in console.
+			System.out.println("[" + date.substring(11) + "] [" + userName + "]: " + message);
+	    
+		} catch (IOException e) {
+			Log.error("System error: Unable to save errorlog.");
+		}
+		return true;
+	}
 }
