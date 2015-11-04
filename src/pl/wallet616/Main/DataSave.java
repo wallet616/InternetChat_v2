@@ -43,51 +43,48 @@ public class DataSave extends Main{
 			}
 		}
 	
-	public static boolean changeData(String userKey, String position, String data) {
-		boolean repeat = false;
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(dataFile));
-		    String line;
-		    String newString = "";
-		    boolean foundKey = false;
-		    
-		    while ((line = br.readLine()) != null)
-			{
-		    	if (line.substring(9).startsWith(userKey)) {
-			    	foundKey = true;
+		public static boolean changeData(String position, String data) {
+			boolean repeat = false;
+			try {
+				// Prepare variables to change data values.
+				BufferedReader br = new BufferedReader(new FileReader(dataFile));
+			    String line;
+			    String newString = "";
+			    position = DataRead.clearText(position);
+			    data = DataRead.clearText(data);
+			    
+			    while ((line = br.readLine()) != null)
+			    {
+			    	// Changing data.
+			    	if (DataRead.clearText(line).startsWith(position)) {
+		    			if (!(DataRead.clearText(line).startsWith("UserKey"))) {
+		    				newString += "	";
+		    			}
+		    			newString += position + ": " + data + "\n";
+		    			repeat = true;
+		    		} else {
+			    		newString += line + "\n";
+			    	}
 			    }
-			    if (foundKey) {
-			    	if (position.equals("userKey") && DataRead.clearText(line).startsWith("UserKey")) {
-			    		newString += "UserKey: " + DataRead.clearText(data) + "\n";
-			    		repeat = true;
-			    		foundKey = false;
-			    	} else if (position.equals("userName") && DataRead.clearText(line).startsWith("UserName")) {
-			    		newString += "	UserName: " + DataRead.clearText(data) + "\n";
-				    	repeat = true;
-				    	foundKey = false;
-			    	} else {
-				    	newString += line + "\n";
-				    }
+			    
+			    br.close();
+				
+				BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile));
+				bw.write(newString);
+			    bw.close();
+			    
+			    if (repeat) {
+			    	Log.log("Data has been changed in data file.");
+			    } else {
+			    	Log.log("Data has not been changed.");
 			    }
-		    }
-		    br.close();
-			
-			BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile));
-			bw.write(newString);
-		    bw.close();
+			    
 		    
-		    if (repeat) {
-		    	Log.log("Data has been changed in data file.");
-		    } else {
-		    	Log.log("Data has not been changed.");
-		    }
-		    
-	    
-		} catch (IOException e) {
-			Log.error("Unable to add change data in data file.");
+			} catch (IOException e) {
+				Log.error("Unable to add change data in data file.");
+			}
+			return repeat;
 		}
-		return repeat;
-	}
 	
 	// Adding to log file.
 	public static boolean archiveSave(String date, String userName, String message) {
