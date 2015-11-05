@@ -27,7 +27,9 @@ public class ConsoleInput extends Main {
 					ConnectionHandler.connection("say:" + consoleInput.substring(4));
 				} else if (consoleInput.startsWith("change ")) {
 					String[] buff = consoleInput.substring(7).split(" ");
-					DataSave.changeData(buff[0], buff[1]);
+					if (ConnectionHandler.connection("change:" + buff[0] + ":" + buff[1])) {
+						DataSave.changeData(buff[0], buff[1]);
+					}
 				} else {
 					Log.log("Command unreconised.");
 				}

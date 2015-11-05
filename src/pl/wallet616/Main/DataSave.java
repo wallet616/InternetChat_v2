@@ -37,6 +37,12 @@ public class DataSave extends Main{
 				}
 				if (!dataFile.exists()) {
 					dataFile.createNewFile();
+					
+					// Adding default data. 
+					BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile, true));
+					bw.append("UserKey: none\n");
+					bw.append("	UserName: none\n");
+				    bw.close();
 				}
 			} catch (IOException e) {
 				Log.error("Unable to create necesery files and folders");
@@ -101,7 +107,7 @@ public class DataSave extends Main{
 		    bw.close();
 		    
 		    // Display messages in console.
-			System.out.println("[" + date.substring(11) + "] [" + userName + "]: " + message);
+			System.out.println("[" + date.substring(11) + "] " + userName + ": " + message);
 	    
 		} catch (IOException e) {
 			Log.error("System error: Unable to save errorlog.");
